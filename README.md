@@ -1,19 +1,55 @@
-# Terraform
+# Terraform AWS EC2
 
-A collection of Terraform configurations used to practice Infrastructure as Code and cloud resource provisioning.
+A Terraform configuration for provisioning a small AWS environment containing a VPC, subnet, routing, security group, SSH key pair, and an EC2 instance.
 
-## Overview
+## Architecture
 
-The repository focuses on Terraform fundamentals such as providers, variables, resources, outputs, modules, planning, and state management.
+```
+AWS
+└── VPC
+    └── Subnet
+        └── EC2 instance
+            └── Amazon Linux 2023
+```
 
 ## Technologies
 
 - Terraform
+- AWS
+- Amazon VPC
+- Amazon EC2
 - HCL
-- Git
-- Cloud infrastructure providers
+- Amazon Linux 2023
 
-## Common workflow
+## Infrastructure
+
+The configuration defines:
+
+- VPC with configurable CIDR
+- subnet with configurable availability zone
+- Internet Gateway
+- route table with default internet route
+- security group
+- EC2 SSH key pair
+- EC2 instance
+- automatic lookup of the latest Amazon Linux 2023 AMI
+- Terraform outputs for the AMI ID and public IP
+
+The security group allows SSH from the configured source address and exposes port 8080.
+
+## Variables
+
+The configuration expects values for:
+
+- VPC CIDR
+- subnet CIDR
+- availability zone
+- environment prefix
+- allowed SSH source
+- EC2 instance type
+- public key path
+
+## Usage
 
 ```bash
 terraform init
@@ -23,18 +59,10 @@ terraform plan
 terraform apply
 ```
 
-Destroy resources when they are no longer required:
+Remove the infrastructure when it is no longer needed:
 
 ```bash
 terraform destroy
 ```
 
-## What this project demonstrates
-
-- Infrastructure as Code
-- Terraform project structure
-- Reusable configuration
-- Variables and outputs
-- Infrastructure planning and validation
-
-This repository is a Terraform learning and experimentation environment.
+This is a personal Infrastructure as Code lab for AWS networking and EC2 provisioning.
